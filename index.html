@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask Her Out</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffe5e5 0%, #ffd1dc 100%);
+  overflow-x: hidden;
+}
+
+/* Header matching screenshot */
+.header {
+  background: #1a1d29;
+  color: white;
+  padding: 20px;
+  position: relative;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #888;
+  font-size: 16px;
+}
+
+.menu-dots {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.container {
+  display: none;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 25px;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container.active {
+  display: flex;
+}
+
+/* GIF Container matching screenshot style */
+.gif-box {
+  width: 280px;
+  height: 280px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tenor-gif-embed {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+h1 {
+  font-size: 32px;
+  color: #1a1a2e;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+p {
+  font-size: 18px;
+  color: #555;
+  margin-top: -10px;
+}
+
+.emoji {
+  font-size: 36px;
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.btn {
+  display: flex;
+  gap: 25px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.btn button {
+  border: none;
+  background: #fff;
+  padding: 15px 50px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1a2e;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.btn button:first-child {
+  border: 2px solid #ffb6c1;
+}
+
+.btn button:first-child:hover {
+  background: #ffb6c1;
+  color: white;
+  transform: scale(1.05);
+}
+
+.btn button:last-child {
+  border: 2px solid #e0e0e0;
+}
+
+.btn button:last-child:hover {
+  background: #ffebee;
+}
+
+/* Running away button style */
+#move-random {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Floating hearts for yes page */
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.heart {
+  position: absolute;
+  font-size: 24px;
+  animation: floatUp 4s ease-in infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  h1 { font-size: 24px; }
+  .gif-box { width: 240px; height: 240px; }
+  .btn button { padding: 12px 40px; font-size: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Ask Her Out</h1>
+  <p>Preview</p>
+  <div class="menu-dots">⋮</div>
+</div>
+
+<!-- Page 1: Initial Ask -->
+<div class="container active" id="page1">
+  <div class="gif-box">
+    <div class="tenor-gif-embed" data-postid="22885016" data-width="100%" data-height="100%"></div>
+  </div>
+  <h1>Do you love me bubu🐼? <span class="emoji">🤗🥹</span></h1>
+  <p>~Anisha plzzz No nokoba🙏😭</p>
+  <div class="btn">
+    <button onclick="showPage('yes')">Yes</button>
+    <button onclick="showPage('page2')">No</button>
+  </div>
+</div>
+
+<!-- Page 2: Please think again -->
+<div class="container" id="page2">
+  <div class="gif-box">
+    <div class="tenor-gif-embed" data-postid="22050818" data-width="100%" data-height="100%"></div>
+  </div>
+  <h1>Please think again! <span class="emoji">😐</span></h1>
+  <p>Na eman xunkale kele koisa bhaba na bubu olp bhaba😢</p>
+  <div class="btn">
+    <button onclick="showPage('yes')">Yes</button>
+    <button onclick="showPage('page3')">No</button>
+  </div>
+</div>
+
+<!-- Page 3: Think once more -->
+<div class="container" id="page3">
+  <div class="gif-box">
+    <div class="tenor-gif-embed" data-postid="15195810" data-width="100%" data-height="100%"></div>
+  </div>
+  <h1>Ek aur baar Soch lo! <span class="emoji">😣</span></h1>
+  <p>kele anekoi korisa mur lgt bubu mani jua na tumar bhorita dhorisu 😖</p>
+  <div class="btn">
+    <button onclick="showPage('yes')">Yes</button>
+    <button onclick="showPage('page4')">No</button>
+  </div>
+</div>
+
+<!-- Page 4: Baby please -->
+<div class="container" id="page4">
+  <div class="gif-box">
+    <div class="tenor-gif-embed" data-postid="15974530976611222074" data-width="100%" data-height="100%"></div>
+  </div>
+  <h1>Baby Man jao na! <span class="emoji">😭</span></h1>
+  <p>bohot beya korisa dei plzz bubu plzzzzzzzzzz mani jua na re 😭</p>
+  <div class="btn">
+    <button onclick="showPage('yes')">Yes</button>
+    <button id="move-random" onclick="moveButton()">No</button>
+  </div>
+</div>
+
+<!-- YES PAGE: Success -->
+<div class="container" id="yes">
+  <div class="gif-box">
+    <div class="tenor-gif-embed" data-postid="253027946666209433" data-width="100%" data-height="100%"></div>
+  </div>
+  <h1>Hehehehe, I knew it!<br>Love you a lot <span class="emoji">😘</span></h1>
+  <div class="btn">
+    <button onclick="location.reload()" style="margin-top: 20px;">Play Again</button>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script src="https://tenor.com/embed.js"></script>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll(".container").forEach(el => el.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  // Start floating hearts on yes page
+  if (id === 'yes') {
+    createFloatingHearts();
+  }
+}
+
+// Moving NO button - runs away on hover
+const moveBtn = document.getElementById("move-random");
+
+if (moveBtn) {
+  moveBtn.addEventListener("mouseenter", function () {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+    moveBtn.style.position = "fixed";
+    moveBtn.style.left = x + "px";
+    moveBtn.style.top = y + "px";
+    moveBtn.style.zIndex = "1000";
+  });
+
+  // Also move on click for mobile
+  moveBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+    moveBtn.style.position = "fixed";
+    moveBtn.style.left = x + "px";
+    moveBtn.style.top = y + "px";
+  });
+}
+
+function moveButton() {
+  // Alternative function for onclick
+  const btn = document.getElementById("move-random");
+  const x = Math.random() * (window.innerWidth - 150);
+  const y = Math.random() * (window.innerHeight - 100);
+  btn.style.position = "fixed";
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+  btn.style.zIndex = "1000";
+}
+
+// Floating hearts animation
+function createFloatingHearts() {
+  const heartsContainer = document.getElementById('hearts');
+  const heartEmojis = ['❤️', '💖', '💕', '💗', '💓', '💝'];
+
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+}
+</script>
+
+</body>
+</html>
